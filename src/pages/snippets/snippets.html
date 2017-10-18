@@ -16,8 +16,8 @@
   <h3>Ionic Menu Starter Code</h3>
 
   <ion-list>
-      <ion-item *ngFor="let snippets of postList">
-        {{snippets.code}}
+      <ion-item *ngFor="let item of postList" (click) = "selectSnippetItem(item)">
+        <h3>{{item.code}}</h3>
       </ion-item>
   </ion-list>
 </ion-content>
