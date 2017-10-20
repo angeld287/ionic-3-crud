@@ -7,12 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edit-snippet</ion-title>
+    <ion-title>Edit Snippet</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+	<ion-item>
+		<ion-label floating>Snippet Title</ion-label>
+		<ion-input [(ngModel)]="title" type="text"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label floating>Snippet Code</ion-label>
+		<ion-input [(ngModel)]="code" type="text"></ion-input>
+	</ion-item>
+	<button ion-button block (click)="EditSnippet(snippet)">Edit Snippet</button>
 </ion-content>

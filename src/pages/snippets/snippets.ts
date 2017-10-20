@@ -3,7 +3,12 @@ import { Component } from '@angular/core';
 import { RemoteServiceProvider } from '../../providers/remote-service/remote-service';
 import { NavController, ActionSheetController, AlertController } from 'ionic-angular';
 import { AddSnippetPage } from '../add-snippet/add-snippet';
+import { EditSnippetPage } from '../edit-snippet/edit-snippet';
 import { snippets } from '../../models/snippets';
+//import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+
+
 
 
 @Component({
@@ -12,11 +17,14 @@ import { snippets } from '../../models/snippets';
 })
 export class SnippetsPage {
 
+  selectedSnippet: snippets;
 	postList: any;
   constructor(private remoteServiceProvider : RemoteServiceProvider, 
               public navCtrl: NavController, 
               private actionSheetCtr: ActionSheetController,
-              public AlertCont: AlertController) {
+              public AlertCont: AlertController,
+              //private locate: Location,
+              public router: Router) {
 
   	this.getSnippets();
   }
@@ -30,9 +38,6 @@ export class SnippetsPage {
         this.navCtrl.push(AddSnippetPage);
       }
 
-      NavigateToEditSnippet(){
-        this.navCtrl.push(AddSnippetPage);
-      }
 
       selectSnippetItem(snippet: snippets){
           /*
@@ -41,6 +46,7 @@ export class SnippetsPage {
             1. editar
             2. borrar
           */
+          this.selectedSnippet = snippet;
 
           this.actionSheetCtr.create({
             title: `${snippet.title}`,
@@ -49,14 +55,18 @@ export class SnippetsPage {
               {
                 text: 'Edit',
                 handler: () => {
-
+                  this.navCtrl.push(EditSnippetPage, {
+                    id: snippet.id,
+                    code: snippet.code,
+                    title: snippet.title
+                  });
                 }
               },
               { 
                 text: 'Delete',
                 role: 'destructive',
                 handler: () => {
-                    this.remoteServiceProvider.removeSnippet(snippet);                  
+                    this.remoteServiceProvider.removeSnippet(snippet);             
                 }
               }
             ]

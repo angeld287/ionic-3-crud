@@ -61,12 +61,15 @@ getSnippetsUrl : string = "http://localhost:8000/snippets/?format=json";
   }
 
   updateSnippet(data) {
+
+    console.log(data.id);
+
     return new Promise((resolve, reject) => {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Basic YWFuZ2VsZXM6VGhlcmMuMjg3Kg==');
 
-        this.http.put(this.Url+"/snippets/?format=json", JSON.stringify(data), {headers: headers})
+        this.http.put(this.Url+"snippets/"+data.id+"/?format=json", JSON.stringify(data), {headers: headers})
           .subscribe(res => {
             resolve(res.json());
           }, (err) => {
